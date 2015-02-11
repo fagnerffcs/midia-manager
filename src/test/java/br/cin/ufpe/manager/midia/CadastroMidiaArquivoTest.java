@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import br.cin.ufpe.manager.cadastro.CadastroMidia;
-import br.cin.ufpe.manager.cadastro.CadastroPessoa;
 import br.cin.ufpe.manager.entity.Midia;
 import br.cin.ufpe.manager.entity.TipoRepositorio;
 import br.cin.ufpe.manager.entity.Usuario;
@@ -21,39 +20,20 @@ import br.cin.ufpe.manager.exception.MidiaNaoEncontradaException;
  */
 
 @RunWith(value=JUnit4.class)
-public class CadastroMidiaTest {
+public class CadastroMidiaArquivoTest {
 	
 	@Test
-	public void testarCadastros(){
-		for(TipoRepositorio tipo : TipoRepositorio.values()){
-			testarAtualizacao(tipo);
-			testarInsercao(tipo);
-			testarListar(tipo);
-			testarRemocao(tipo);
-		}
-	}
-	
-	public void testarAtualizacao(TipoRepositorio tipo){
-		CadastroMidia controladorMidia = new CadastroMidia(tipo);
+	public void testarAtualizacao(){
+		CadastroMidia controladorMidia = new CadastroMidia(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Midia m = new Midia();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				m.setId(new Long(i+1));
-			}
+			m.setId(new Long(i+1));
 			m.setNome("Backup "+(i+1));
 
 			Usuario u = new Usuario();
 			u.setNome("José");
 			u.setCpf("111.111.111-11");
-
-			if(tipo.equals(TipoRepositorio.BD)){
-				CadastroPessoa cadastroPessoa = new CadastroPessoa(tipo);
-				cadastroPessoa.inserirNovaPessoa(u);
-				Usuario dono = (Usuario) cadastroPessoa.buscarPessoa(u.getId());
-				m.setDono(dono);
-			} else {
-				m.setDono(u);
-			}
+			m.setDono(u);
 			controladorMidia.inserirNovaMidia(m);
 		}
 		
@@ -64,13 +44,12 @@ public class CadastroMidiaTest {
 		Assert.assertTrue(midiaRepo.getNome().equals(midia.getNome()));			
 	}
 	
-	public void testarInsercao(TipoRepositorio tipo){
-		CadastroMidia cm = new CadastroMidia(tipo);
+	@Test
+	public void testarInsercao(){
+		CadastroMidia cm = new CadastroMidia(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Midia m = new Midia();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				m.setId(new Long(i+1));
-			}
+			m.setId(new Long(i+1));
 			m.setNome("Backup "+ (i+1));
 			cm.inserirNovaMidia(m);
 		}
@@ -79,13 +58,12 @@ public class CadastroMidiaTest {
 		Assert.assertNotNull(usu);
 	}
 	
-	public void testarListar(TipoRepositorio tipo){
-		CadastroMidia cm = new CadastroMidia(tipo);
+	@Test
+	public void testarListar(){
+		CadastroMidia cm = new CadastroMidia(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Midia m = new Midia();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				m.setId(new Long(i+1));
-			}
+			m.setId(new Long(i+1));
 			m.setNome("Backup "+ (i+1));
 			cm.inserirNovaMidia(m);
 		}
@@ -94,13 +72,12 @@ public class CadastroMidiaTest {
 		Assert.assertTrue(lista.size()>0);
 	}	
 	
-	public void testarRemocao(TipoRepositorio tipo){
-		CadastroMidia cMidia = new CadastroMidia(tipo);
+	@Test
+	public void testarRemocao(){
+		CadastroMidia cMidia = new CadastroMidia(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Midia m = new Midia();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				m.setId(new Long(i+1));
-			}
+			m.setId(new Long(i+1));
 			m.setNome("John "+ (i+1));
 			cMidia.inserirNovaMidia(m);
 		}

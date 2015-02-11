@@ -20,25 +20,14 @@ import br.cin.ufpe.manager.exception.PessoaNaoEncontradaException;
  */
 
 @RunWith(value=JUnit4.class)
-public class CadastroPessoaTest {
+public class CadastroPessoaArquivoTest {
 	
 	@Test
-	public void testarCadastros(){
-		for(TipoRepositorio tipo : TipoRepositorio.values()){
-			testarAtualizacao(tipo);
-			testarInsercao(tipo);
-			testarListar(tipo);
-			testarRemocao(tipo);
-		}
-	}
-	
-	public void testarAtualizacao(TipoRepositorio tipo){
-		CadastroPessoa cadastroPessoa = new CadastroPessoa(tipo);
+	public void testarAtualizacao(){
+		CadastroPessoa cadastroPessoa = new CadastroPessoa(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Usuario u = new Usuario();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				u.setId(new Long(i+1));
-			}
+			u.setId(new Long(i+1));
 			u.setCpf("123.456.789-"+i+(i+1));
 			u.setNome("John "+ (i+1));
 			cadastroPessoa.inserirNovaPessoa(u);
@@ -51,45 +40,42 @@ public class CadastroPessoaTest {
 		Assert.assertTrue(usuRepo.getNome().equals(usu.getNome()));
 	}
 	
-	public void testarInsercao(TipoRepositorio tipo){
-		CadastroPessoa cp = new CadastroPessoa(tipo);
+	@Test
+	public void testarInsercao(){
+		CadastroPessoa cadastroPessoa = new CadastroPessoa(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Usuario u = new Usuario();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				u.setId(new Long(i+1));
-			}
+			u.setId(new Long(i+1));
 			u.setCpf("123.456.789-"+i+(i+1));
 			u.setNome("John "+ (i+1));
-			cp.inserirNovaPessoa(u);
+			cadastroPessoa.inserirNovaPessoa(u);
 		}
 		
-		Usuario usu = (Usuario) cp.buscarPessoa(new Long(1));
+		Usuario usu = (Usuario) cadastroPessoa.buscarPessoa(new Long(1));
 		Assert.assertNotNull(usu);
 	}
 	
-	public void testarListar(TipoRepositorio tipo){
-		CadastroPessoa cp = new CadastroPessoa(tipo);
+	@Test
+	public void testarListar(){
+		CadastroPessoa cadastroPessoa = new CadastroPessoa(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Usuario u = new Usuario();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				u.setId(new Long(i+1));
-			}
+			u.setId(new Long(i+1));
 			u.setCpf("123.456.789-"+i+(i+1));
 			u.setNome("John "+ (i+1));
-			cp.inserirNovaPessoa(u);
+			cadastroPessoa.inserirNovaPessoa(u);
 		}
 		
-		List<Pessoa> lista = cp.listar();
+		List<Pessoa> lista = cadastroPessoa.listar();
 		Assert.assertTrue(lista.size()>0);
 	}	
 	
-	public void testarRemocao(TipoRepositorio tipo){
-		CadastroPessoa cps = new CadastroPessoa(tipo);
+	@Test
+	public void testarRemocao(){
+		CadastroPessoa cps = new CadastroPessoa(TipoRepositorio.ARQUIVO);
 		for (int i = 0; i < 10; i++) {
 			Usuario u = new Usuario();
-			if(!tipo.equals(TipoRepositorio.BD)){
-				u.setId(new Long(i+1));
-			}
+			u.setId(new Long(i+1));
 			u.setCpf("123.456.789-"+i+(i+1));
 			u.setNome("John "+ (i+1));
 			cps.inserirNovaPessoa(u);

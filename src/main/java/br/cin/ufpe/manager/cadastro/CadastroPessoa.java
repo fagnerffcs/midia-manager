@@ -103,7 +103,7 @@ public class CadastroPessoa {
 			return lista;
 		}
 		return null;
-	}	
+	}
 	
 	public void removerPessoa(Pessoa p) throws PessoaNaoEncontradaException {
 		if(repositorio instanceof RepositorioManagerArquivo){
@@ -116,6 +116,13 @@ public class CadastroPessoa {
 			((RepositorioManagerVetor) this.repositorio).getRepositorioPessoasVetor().remover(p);
 		}				
 	}
+	
+	public List<Pessoa> listarUsuarios(){
+		return ((RepositorioManagerBD) this.repositorio).getRepositorioPessoasBD().listarUsuarios();
+	}
 
+	public List<Pessoa> listarAdministradores(){
+		return ((RepositorioManagerBD) this.repositorio).getRepositorioPessoasBD().listarAdministradores();
+	}
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("USU")
 public class Usuario extends Pessoa {
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="dono", fetch=FetchType.EAGER)
 	private List<Midia> midias;
 
 	public List<Midia> getMidias() {

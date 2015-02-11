@@ -56,10 +56,7 @@ public class Principal {
 					int opcaoSubMenu = in.nextInt();
 					// inserir
 					if(opcaoSubMenu==1){
-						System.out.println("A - Administrador");
-						System.out.println("U - Usuário");
-						System.out.println("M - Midia");
-						System.out.println("I - Item");
+						imprimirMenuEntidade();
 						
 						String valor = in.next();
 						//insere um objeto Administrador
@@ -76,11 +73,54 @@ public class Principal {
 						}
 						
 					} else if(opcaoSubMenu==2) { // remover
+						imprimirMenuEntidade();
+						String valor = in.next();
+						
+						//insere um objeto Administrador
+						if(valor.equals("A")){
+							removerAdmin(in, controladorPrincipal);
+						} else if(valor.equals("U")){ //insere um objeto usuario
+							removerUsuario(in, controladorPrincipal);
+						} else if(valor.equals("M")){ //insere um objeto Midia
+							removerMidia(in, controladorPrincipal);
+						} else if(valor.equals("I")){ //insere um objeto Item
+							removerItemMidia(in, controladorPrincipal);
+						} else {
+							System.out.println("Opção inválida.");
+						}
 						
 					} else if(opcaoSubMenu==3) { // atualizar
-						
+						imprimirMenuEntidade();
+						String valor = in.next();						
+						//atualizar um objeto Administrador
+						if(valor.equals("A")){
+							atualizarAdmin(in, controladorPrincipal);
+						} else if(valor.equals("U")){ //atualizar um objeto usuario
+							atualizarUsuario(in, controladorPrincipal);
+						} else if(valor.equals("M")){ //atualizar um objeto Midia
+							atualizarMidia(in, controladorPrincipal);
+						} else if(valor.equals("I")){ //atualizar um objeto Item
+							atualizarItemMidia(in, controladorPrincipal);
+						} else {
+							System.out.println("Opção inválida.");
+						}
+
 					} else if(opcaoSubMenu==4) { //listar
-						System.out.println(controladorPrincipal.getCadastroPessoa().listar().toString());
+						imprimirMenuEntidade();
+						String valor = in.next();
+						//listar Administradores
+						if(valor.equals("A")){
+							System.out.println(controladorPrincipal.getCadastroPessoa().listarAdministradores());
+						} else if(valor.equals("U")){ //listar Usuarios
+							System.out.println(controladorPrincipal.getCadastroPessoa().listarUsuarios());
+						} else if(valor.equals("M")){ //listar Midias
+							System.out.println(controladorPrincipal.getCadastroMidia().listar());
+						} else if(valor.equals("I")){ //listar Itens
+							System.out.println(controladorPrincipal.getCadastroItens().listar());
+						} else {
+							System.out.println("Opção inválida.");
+						}
+						
 					} else {
 						System.out.println("Opção inválida.");
 					}
@@ -101,14 +141,52 @@ public class Principal {
 		System.out.println("Até a próxima!");
 	}
 
-	private static void inserirItemMidia(Scanner in,
-			ControladorPrincipal controladorPrincipal) {
+	private static void atualizarItemMidia(Scanner in, ControladorPrincipal controladorPrincipal) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private static void inserirMidia(Scanner in,
-			ControladorPrincipal controladorPrincipal) {
+	private static void atualizarMidia(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void atualizarUsuario(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void atualizarAdmin(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void removerItemMidia(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void removerMidia(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void removerUsuario(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void removerAdmin(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void inserirItemMidia(Scanner in, ControladorPrincipal controladorPrincipal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void inserirMidia(Scanner in, ControladorPrincipal controladorPrincipal) {
 		System.out.println("Informe o id do usuário: ");
 		Long id = in.nextLong();
 		Usuario u = (Usuario) controladorPrincipal.getCadastroPessoa().buscarPessoa(id);
@@ -119,6 +197,8 @@ public class Principal {
 				Midia m = new Midia();
 				System.out.println("Informe o nome da mídia: ");
 				m.setNome(in.next());
+				m.setDono(u);
+				//insere a midia
 				lista.add(m);
 				controladorPrincipal.getCadastroMidia().inserirNovaMidia(m);
 				System.out.println("Deseja continuar inseririndo as mídias do usuário? (S/N) ");
@@ -132,8 +212,7 @@ public class Principal {
 		}
 	}
 
-	private static void inserirUsuario(Scanner in,
-			ControladorPrincipal controladorPrincipal) {
+	private static void inserirUsuario(Scanner in, ControladorPrincipal controladorPrincipal) {
 		Usuario usu = new Usuario();
 		System.out.println("Informe o nome do Usuário: ");
 		usu.setNome(in.next());
@@ -142,8 +221,7 @@ public class Principal {
 		controladorPrincipal.getCadastroPessoa().inserirNovaPessoa(usu);
 	}
 
-	private static void inserirAdmin(Scanner in,
-			ControladorPrincipal controladorPrincipal) {
+	private static void inserirAdmin(Scanner in, ControladorPrincipal controladorPrincipal) {
 		Administrador adm = new Administrador();
 		System.out.println("Informe o nome do Administrador: ");
 		adm.setNome(in.next());
@@ -155,14 +233,6 @@ public class Principal {
 		System.out.println(adm.getNome() + " cadastrado com sucesso.");
 	}
 
-	private static void imprimirSubMenu() {
-		System.out.println("Informe a opção desejada:");
-		System.out.println("1 - Cadastrar Novo");
-		System.out.println("2 - Remover");
-		System.out.println("3 - Atualizar");
-		System.out.println("4 - Listar");
-	}
-
 	private static void imprimirMenuPrincipal() {
 		System.out.println("Informe o tipo do repositório a ser utilizado: ");
 		int cont = 1;
@@ -172,4 +242,19 @@ public class Principal {
 		}
 	}
 
+	private static void imprimirSubMenu() {
+		System.out.println("Informe a opção desejada:");
+		System.out.println("1 - Cadastrar Novo");
+		System.out.println("2 - Remover");
+		System.out.println("3 - Atualizar");
+		System.out.println("4 - Listar");
+	}	
+	
+	private static void imprimirMenuEntidade() {
+		System.out.println("A - Administrador");
+		System.out.println("U - Usuário");
+		System.out.println("M - Midia");
+		System.out.println("I - Item");
+	}	
+	
 }

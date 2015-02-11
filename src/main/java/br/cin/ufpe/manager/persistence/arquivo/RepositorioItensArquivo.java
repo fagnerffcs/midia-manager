@@ -5,16 +5,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.cin.ufpe.manager.entity.ItemBackup;
+import br.cin.ufpe.manager.entity.ItemMidia;
 import br.cin.ufpe.manager.exception.ItemNaoEncontradoException;
 import br.cin.ufpe.manager.interfaces.IRepositorio;
 import br.cin.ufpe.manager.util.FileHandler;
 
-public class RepositorioItensArquivo implements IRepositorio<ItemBackup> {
+public class RepositorioItensArquivo implements IRepositorio<ItemMidia> {
 	
 	private final String nomeArquivo = "itens.txt";
 	private FileHandler fh = new FileHandler();
-	private List<ItemBackup> itens;
+	private List<ItemMidia> itens;
 	private static Logger log = LoggerFactory.getLogger(RepositorioPessoasArquivo.class);
 
 	
@@ -22,17 +22,17 @@ public class RepositorioItensArquivo implements IRepositorio<ItemBackup> {
 		this.itens = fh.carregarDadosItens(nomeArquivo);
 	}
 
-	public List<ItemBackup> listar() {
+	public List<ItemMidia> listar() {
 		return this.itens;
 	}
 
-	public void inserir(ItemBackup it) {
+	public void inserir(ItemMidia it) {
 		this.itens.add(it);
 		fh.escreverItensNoArquivo(nomeArquivo, itens);
 	}
 
-	public void remover(ItemBackup i) throws ItemNaoEncontradoException {
-		ItemBackup item = buscarPorId(i.getId());
+	public void remover(ItemMidia i) throws ItemNaoEncontradoException {
+		ItemMidia item = buscarPorId(i.getId());
 		if(item==null){
 			throw new ItemNaoEncontradoException(i.getId());
 		}
@@ -40,15 +40,15 @@ public class RepositorioItensArquivo implements IRepositorio<ItemBackup> {
 		fh.escreverItensNoArquivo(nomeArquivo, itens);
 	}
 
-	public void atualizar(ItemBackup i) {
-		ItemBackup itemAnterior = buscarPorId(i.getId());
+	public void atualizar(ItemMidia i) {
+		ItemMidia itemAnterior = buscarPorId(i.getId());
 		itens.remove(itemAnterior);
 		itens.add(i);
 		fh.escreverItensNoArquivo(nomeArquivo, itens);		
 	}
 
-	public ItemBackup buscarPorId(Long id) {
-		for (ItemBackup i : itens) {
+	public ItemMidia buscarPorId(Long id) {
+		for (ItemMidia i : itens) {
 			if(i.getId().equals(id)){
 				return i;
 			}

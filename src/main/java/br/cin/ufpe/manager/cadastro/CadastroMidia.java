@@ -101,7 +101,7 @@ public class CadastroMidia {
 		} else if(repositorio instanceof RepositorioManagerVetor) {
 			Midia[] vetor = ((RepositorioManagerVetor) this.repositorio).getRepositorioMidiasVetor().listar();
 			for (int i = 0; i < vetor.length; i++) {
-				if(vetor[i].getId().equals(id)){
+				if(vetor[i]!=null && vetor[i].getId().equals(id)){
 					return vetor[i];
 				}
 			}

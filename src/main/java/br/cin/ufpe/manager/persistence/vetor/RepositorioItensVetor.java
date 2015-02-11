@@ -1,18 +1,18 @@
 package br.cin.ufpe.manager.persistence.vetor;
 
-import br.cin.ufpe.manager.entity.ItemBackup;
+import br.cin.ufpe.manager.entity.ItemMidia;
 import br.cin.ufpe.manager.exception.ItemNaoEncontradoException;
 import br.cin.ufpe.manager.interfaces.IRepositorioVetor;
 
-public class RepositorioItensVetor implements IRepositorioVetor<ItemBackup> {
+public class RepositorioItensVetor implements IRepositorioVetor<ItemMidia> {
 
-	private ItemBackup[] itens = new ItemBackup[10];
+	private ItemMidia[] itens = new ItemMidia[10];
 	private double loadFactor;
-	private static int indice = 0;
+	private int indice;
 	
 	private void duplicarCapacidade(){
-		indice = 0;
-		ItemBackup[] temp = new ItemBackup[itens.length*2];
+		this.indice = 0;
+		ItemMidia[] temp = new ItemMidia[itens.length*2];
 		for (int i = 0; i < itens.length; i++) {
 			temp[i] = itens[i];
 			indice = indice+1;
@@ -20,20 +20,20 @@ public class RepositorioItensVetor implements IRepositorioVetor<ItemBackup> {
 		itens = temp;
 	}
 	
-	public ItemBackup[] listar(){
+	public ItemMidia[] listar(){
 		return itens;
 	}
 
-	public void inserir(ItemBackup t) {
+	public void inserir(ItemMidia t) {
 		if(loadFactor >= 0.75){
 			duplicarCapacidade();
 		}
-		indice = indice+1;
-		loadFactor = indice/itens.length;
 		itens[indice] = t;
+		this.indice = this.indice+1;
+		loadFactor = (double) indice/itens.length;
 	}
 
-	public void remover(ItemBackup m) throws ItemNaoEncontradoException {
+	public void remover(ItemMidia m) throws ItemNaoEncontradoException {
 		int posicao = buscarPorId(m.getId());
 		if(posicao==-1){
 			throw new ItemNaoEncontradoException(m.getId());
@@ -51,7 +51,7 @@ public class RepositorioItensVetor implements IRepositorioVetor<ItemBackup> {
 		indice=indice-1;
 	}
 
-	public void atualizar(ItemBackup itemAtualizada) {
+	public void atualizar(ItemMidia itemAtualizada) {
 		int p = buscarPorId(itemAtualizada.getId());
 		itens[p] = itemAtualizada;
 	}

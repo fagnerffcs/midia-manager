@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import br.cin.ufpe.manager.entity.ItemBackup;
+import org.hibernate.Session;
+
+import br.cin.ufpe.manager.entity.ItemMidia;
 import br.cin.ufpe.manager.interfaces.IRepositorio;
 import br.cin.ufpe.manager.util.FabricaEntityManager;
 
-public class RepositorioItensBD implements IRepositorio<ItemBackup> {
+public class RepositorioItensBD implements IRepositorio<ItemMidia> {
 	
 	private EntityManager em;
 	
@@ -21,29 +23,37 @@ public class RepositorioItensBD implements IRepositorio<ItemBackup> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ItemBackup> listar() {
-		return em.createQuery("SELECT i FROM ItemBackup i").getResultList();
+	public List<ItemMidia> listar() {
+		return em.createQuery("SELECT i FROM ItemMidia i").getResultList();
 	}
 
-	public void inserir(ItemBackup i) {
-		em.persist(i);
-		em.flush();
+	public void inserir(ItemMidia i) {
+		Session session = (Session) em.getDelegate();
+		session.persist(i);
+		session.flush();
 	}
 
-	public void remover(ItemBackup i) {
-		ItemBackup item = buscarPorId(i.getId());
-		em.remove(item);
-		em.flush();
+	public void remover(ItemMidia i) {
+		Session session = (Session) em.getDelegate();
+		ItemMidia item = buscarPorId(i.getId());
+		session.delete(item);
+		session.flush();
 	}
 
-	public void atualizar(ItemBackup i) {
-		em.merge(i);
-		em.flush();
+	public void atualizar(ItemMidia i) {
+		Session session = (Session) em.getDelegate();
+		session.merge(i);
+		session.flush();
 	}
 
-	public ItemBackup buscarPorId(Long id) {
-		ItemBackup item = em.find(ItemBackup.class, id);
-		return item;
+	public ItemMidia buscarPorId(Long id) {
+		List<ItemMidia> lista = listar();
+		for (ItemMidia itemMidia : lista) {
+			if(itemMidia.getId().equals(id)){
+				return itemMidia;
+			}
+		}
+		return null;
 	}
 
 }

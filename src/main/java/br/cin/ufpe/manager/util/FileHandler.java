@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.cin.ufpe.manager.entity.Administrador;
-import br.cin.ufpe.manager.entity.ItemBackup;
+import br.cin.ufpe.manager.entity.ItemMidia;
 import br.cin.ufpe.manager.entity.Midia;
 import br.cin.ufpe.manager.entity.Pessoa;
 import br.cin.ufpe.manager.entity.Usuario;
@@ -36,14 +36,14 @@ public class FileHandler {
 		return br;
 	}
 
-	public List<ItemBackup> carregarDadosItens(String nomeArq) {
-		List<ItemBackup> lista = new ArrayList<ItemBackup>();
+	public List<ItemMidia> carregarDadosItens(String nomeArq) {
+		List<ItemMidia> lista = new ArrayList<ItemMidia>();
 		BufferedReader br = carregarLeitorDados(nomeArq);
 		String linha = null;
 		try {
 			while((linha = br.readLine())!=null){
 				String[] vetorItem = linha.split(",");
-				ItemBackup item = new ItemBackup();
+				ItemMidia item = new ItemMidia();
 				item.setId(Long.parseLong(vetorItem[0]));
 				item.setDescricao(vetorItem[1]);
 				lista.add(item);
@@ -138,14 +138,14 @@ public class FileHandler {
 		}		
 	}
 	
-	public void escreverItensNoArquivo(String nomeArquivo, List<ItemBackup> itens) {
+	public void escreverItensNoArquivo(String nomeArquivo, List<ItemMidia> itens) {
 		File f = new File(nomeArquivo);
 		FileWriter fw;
 		BufferedWriter bw;
 		try {
 			fw = new FileWriter(f);
 			bw = new BufferedWriter(fw);
-			for (ItemBackup it : itens) {
+			for (ItemMidia it : itens) {
 				bw.write(it.toString());
 			}
 			bw.close();

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -20,8 +22,12 @@ public class Midia {
 	@Column(name="mid_nome")
 	private String nome;
 	
-	@OneToMany
-	private List<ItemBackup> itens; 
+	@OneToMany(mappedBy="midia")
+	private List<ItemMidia> itens;
+	
+	@ManyToOne
+	@JoinColumn(name="usuario_fk")
+	private Usuario dono;
 
 	public Long getId() {
 		return id;
@@ -31,20 +37,28 @@ public class Midia {
 		this.id = id;
 	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
 
-	public List<ItemBackup> getItens() {
+	public List<ItemMidia> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItemBackup> itens) {
+	public void setItens(List<ItemMidia> itens) {
 		this.itens = itens;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public Usuario getDono() {
+		return dono;
+	}
+
+	public void setDono(Usuario dono) {
+		this.dono = dono;
 	}
 
 	@Override
