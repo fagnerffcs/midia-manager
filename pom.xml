@@ -8,7 +8,7 @@
   
 	<properties>
 		<hibernate.version>4.0.1.Final</hibernate.version>
-		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+		<hibernate.validator.version>5.3.5.Final</hibernate.validator.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
 		<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
 		<pivot.version>2.0.2</pivot.version>
